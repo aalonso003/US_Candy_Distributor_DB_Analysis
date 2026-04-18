@@ -16,3 +16,12 @@ JOIN Products P ON S.ProductID = P.ProductID
 GROUP BY P.ProductName
 ORDER BY TotalRevenue DESC;
 
+
+
+-- 3. Total Sales per factory
+SELECT F.FactoryName, SUM(S.Revenue) AS FactoryRevenue
+FROM Sales S
+JOIN Products P ON S.ProductID = P.ProductID
+JOIN Factories F ON P.FactoryID = F.FactoryID
+GROUP BY F.FactoryName
+ORDER BY FactoryRevenue DESC;
