@@ -25,3 +25,29 @@ JOIN Products P ON S.ProductID = P.ProductID
 JOIN Factories F ON P.FactoryID = F.FactoryID
 GROUP BY F.FactoryName
 ORDER BY FactoryRevenue DESC;
+
+/* 4- Creating A Factory Report by joining sales, products, and factories into a 
+single analysis with multiple JOINS making it more accessible  */
+GO
+CREATE VIEW dbo.vFactoryReportV AS
+SELECT S.OrderDate, SUM(S.Revenue) AS TotalRevenue, P.ProductName, F.FactoryName
+FROM Sales S
+INNER JOIN Products P  
+    ON S.ProductID = P.ProductID
+INNER JOIN Factories F
+    ON p.FactoryID = F.FactoryID
+GROUP BY S.OrderDate, P.ProductName, F.FactoryName
+GO
+;
+
+SELECT * FROM vFactoryReportV;
+
+ -- 5. Identify what are the best perfomance-based factories
+SELECT F.FactoryName, COUNT(*) AS TotalSales
+FROM Factories F
+INNER JOIN Products P
+    ON F.FactoryID = P.FactoryID
+GROUP BY F.FactoryName
+HAVING COUNT(*) > 3;
+
+
