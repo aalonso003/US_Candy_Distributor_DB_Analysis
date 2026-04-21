@@ -203,3 +203,27 @@ HAVING SUM(S.Revenue) > (
 ORDER BY TotalSpend DESC;
 
 
+
+-- ============================================================
+-- QUERY 11: Monthly Sales Snapshot (Variable)
+-- Goal: Pull all sales for a specific month and year using
+--       a variable so the query can be reused without
+--       rewriting the filter every time.
+-- Skills: DECLARE, WHERE with YEAR/MONTH, JOIN, GROUP BY
+-- ============================================================
+DECLARE @TargetMonth INT = 3;
+DECLARE @TargetYear  INT = 2024;
+
+SELECT
+    p.ProductName,
+    p.Division,
+    f.FactoryName,
+    SUM(s.UnitsSold) AS UnitsSold,
+    SUM(s.Revenue)   AS MonthRevenue
+FROM Sales s
+JOIN Products  p ON s.ProductID = p.ProductID
+JOIN Factories f ON p.FactoryID = f.FactoryID
+WHERE MONTH(s.OrderDate) = @TargetMonth
+  AND YEAR(s.OrderDate)  = @TargetYear
+GROUP BY p.ProductName, p.Division, f.FactoryName
+ORDER BY MonthRevenue DESC;
