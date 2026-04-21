@@ -175,3 +175,31 @@ JOIN Products  p ON s.ProductID  = p.ProductID
 JOIN Factories f ON p.FactoryID  = f.FactoryID
 GROUP BY f.FactoryName, f.City, f.State
 ORDER BY GrossProfit DESC;
+
+
+-- ============================================================
+-- QUERY 10: High-Value Customer Analysis (Subquery)
+-- GOAL: Find customers whose total spending exceeds the
+--       overall average order value — our most valuable accounts.
+-- ============================================================
+SELECT
+    C.CustomerName,
+    C.CustomerType,
+    SUM(S.Revenue)                        AS TotalSpend,
+    COUNT(S.SaleID)                        AS TotalOrders,
+    CAST(AVG(S.Revenue) AS DECIMAL(10,2)) AS AvgOrderValue
+FROM Customers C
+INNER JOIN Sales S ON C.CustomerID = S.CustomerID
+GROUP BY C.CustomerID, C.CustomerName, C.CustomerType
+HAVING SUM(S.Revenue) > (
+    -- Subquery: average total spend per customer
+    SELECT AVG(CustomerTotal)
+    FROM (
+        SELECT SUM(Revenue) AS CustomerTotal
+        FROM Sales
+        GROUP BY CustomerID
+    ) AS AvgSubquery
+)
+ORDER BY TotalSpend DESC;
+
+
