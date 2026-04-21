@@ -30,16 +30,21 @@ ORDER BY TotalRevenue DESC;
 
 
 -- ============================================================
--- QUERY 3. Total Sales per factory
--- Goal: Identify the Total Sales per Factory
--- Skills: JOIN, GROUP BY, ORDER BY
+-- QUERY 3: Total Revenue by Factory (Ranked)
+-- GOAL: Rank factories by revenue contribution to spot
+--       top performers and underperformers.
 -- ============================================================
-SELECT F.FactoryName, SUM(S.Revenue) AS FactoryRevenue
+SELECT
+    F.FactoryName,
+    F.State,
+    SUM(S.Revenue)       AS FactoryRevenue,
+    COUNT(DISTINCT S.ProductID) AS UniqueProductsSold
 FROM Sales S
-JOIN Products P ON S.ProductID = P.ProductID
-JOIN Factories F ON P.FactoryID = F.FactoryID
-GROUP BY F.FactoryName
+INNER JOIN Products P  ON S.ProductID = P.ProductID
+INNER JOIN Factories F ON P.FactoryID = F.FactoryID
+GROUP BY F.FactoryName, F.State
 ORDER BY FactoryRevenue DESC;
+
 
 
 
