@@ -29,7 +29,6 @@ ORDER BY TotalRevenue DESC;
 
 
 
--- 3. Total Sales per factory
 -- ============================================================
 -- QUERY 3. Total Sales per factory
 -- Goal: Identify the Total Sales per Factory
