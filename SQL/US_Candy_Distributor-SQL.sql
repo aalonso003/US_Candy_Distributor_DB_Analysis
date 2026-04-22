@@ -38,7 +38,8 @@ SELECT
     F.FactoryName,
     F.State,
     SUM(S.Revenue)       AS FactoryRevenue,
-    COUNT(DISTINCT S.ProductID) AS UniqueProductsSold
+    COUNT(DISTINCT S.ProductID) AS UniqueProductsSold,
+    RANK() OVER (ORDER BY SUM(s.Revenue) DESC) AS RANK
 FROM Sales S
 INNER JOIN Products P  ON S.ProductID = P.ProductID
 INNER JOIN Factories F ON P.FactoryID = F.FactoryID
