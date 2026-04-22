@@ -68,10 +68,12 @@ ORDER BY TotalRevenue DESC;
 
 
 -- ============================================================
--- QUERY 5: Factory Output Performance
+-- QUERY 5: Factory Output Performance (VIEW)
 -- Goal: Helps Track which Factories are responsible for the most distributed product volume
 -- Skills: JOIN, GROUP BY, ORDER BY, CONCAT, COUNT
 -- ============================================================
+GO
+CREATE VIEW vFactoryPerformance AS
 SELECT 
     f.FactoryID,
     f.FactoryName,
@@ -81,9 +83,10 @@ SELECT
 FROM Sales s
 JOIN Products p ON s.ProductID = p.ProductID
 JOIN Factories f ON p.FactoryID = f.FactoryID
-GROUP BY f.FactoryID,f.FactoryName, f.City, f.[State]
-ORDER BY TotalUnitsShipped DESC;
+GROUP BY f.FactoryID,f.FactoryName, f.City, f.[State];
 
+SELECT * FROM vFactoryPerformance
+ORDER BY TotalUnitsShipped DESC;
 
 
 -- ============================================================
