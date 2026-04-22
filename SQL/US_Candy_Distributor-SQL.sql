@@ -68,20 +68,21 @@ ORDER BY TotalRevenue DESC;
 
 
 -- ============================================================
--- QUERY 5: Top 10 Best-Selling Products by Revenue
--- Goal: Identify which individual products generate the most
---       revenue for the distributor.
--- Skills: JOIN, GROUP BY, ORDER BY, TOP
+-- QUERY 5: Factory Output Performance
+-- Goal: Helps Track which Factories are responsible for the most distributed product volume
+-- Skills: JOIN, GROUP BY, ORDER BY, CONCAT, COUNT
 -- ============================================================
-SELECT TOP 10
-    p.ProductName,
-    p.Division,
-    SUM(s.UnitsSold)  AS TotalUnitsSold,
-    SUM(s.Revenue)    AS TotalRevenue
+SELECT 
+    f.FactoryID,
+    f.FactoryName,
+    CONCAT(f.City, ', ', f.STATE) AS 'LOCATION',
+    COUNT(s.SaleID) AS OrdersFulfilled,
+    SUM(s.UnitsSold) AS TotalUnitsShipped
 FROM Sales s
 JOIN Products p ON s.ProductID = p.ProductID
-GROUP BY p.ProductName, p.Division
-ORDER BY TotalRevenue DESC;
+JOIN Factories f ON p.FactoryID = f.FactoryID
+GROUP BY f.FactoryID,f.FactoryName, f.City, f.[State]
+ORDER BY TotalUnitsShipped DESC;
 
 
 
