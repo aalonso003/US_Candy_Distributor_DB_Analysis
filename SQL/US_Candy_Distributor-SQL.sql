@@ -227,3 +227,49 @@ WHERE MONTH(s.OrderDate) = @TargetMonth
   AND YEAR(s.OrderDate)  = @TargetYear
 GROUP BY p.ProductName, p.Division, f.FactoryName
 ORDER BY MonthRevenue DESC;
+
+
+-- ============================================================
+-- QUERY 12: Stored Procedure for High-Value Purchase Orders
+-- Goal: Create a reusable stored procedure that returns all
+--       purchase orders above a specified minimum amount and
+--       classifies them as "VIP Customer" or "Regular Customer" based on
+--       their total amount spent.
+-- Skills: CREATE PROCEDURE, parameters, CASE statement, JOIN
+-- ============================================================
+GO
+CREATE PROCEDURE CustomerVIPStatus
+    @CustomerID INT
+AS
+BEGIN
+    DECLARE @TotalSpent DECIMAL(18, 2);
+    SELECT @TotalSpent = SUM(S.Revenue)
+    FROM Sales S
+    INNER JOIN Customers C ON S.CustomerID = C.CustomerID
+    WHERE C.CustomerID = @CustomerID;
+IF @TotalSpent >= 500
+    BEGIN
+        SELECT C.CustomerID, 
+               C.CustomerName,
+               @TotalSpent AS TotalSpent,
+               'VIP Customer' AS Status
+        FROM Customers C
+        INNER JOIN Sales S ON C.CustomerID = S.CustomerID
+        WHERE C.CustomerID = @CustomerID
+        GROUP BY c.CustomerID, c.CustomerName;
+    END
+ELSE
+    BEGIN
+        SELECT C.CustomerID, 
+               C.CustomerName,
+               @TotalSpent AS TotalSpent,               
+               'Regular Customer' AS Status
+        FROM Customers C
+        INNER JOIN Sales S ON C.CustomerID = S.CustomerID
+        WHERE C.CustomerID =3
+        GROUP BY c.CustomerID, c.CustomerName;
+    END
+END;
+GO
+
+EXEC CustomerVIPStatus @CustomerID = 9;
