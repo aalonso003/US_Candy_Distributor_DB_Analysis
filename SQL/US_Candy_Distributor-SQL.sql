@@ -239,7 +239,7 @@ ORDER BY MonthRevenue DESC;
 --       purchase orders above a specified minimum amount and
 --       classifies them as "VIP Customer" or "Regular Customer" based on
 --       their total amount spent.
--- Skills: CREATE PROCEDURE, parameters, CASE statement, JOIN
+-- Skills: CREATE PROCEDURE, parameters, IF/ELSE, JOIN
 -- ============================================================
 GO
 CREATE PROCEDURE CustomerVIPStatus
