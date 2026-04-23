@@ -50,8 +50,8 @@ The project includes multiple analytical queries covering:
 - Slow-Moving Products by Factory  
 - Factory Output & Profitability
 
-- ![Alt Text](https://github.com/aalonso003/US_Candy_Distributor_DB_Analysis/blob/main/Vizualizations/Top5_Selling_Products.png)
-- ![Alt Text](https://github.com/aalonso003/US_Candy_Distributor_DB_Analysis/blob/main/Vizualizations/Factory_Performance-BAR.png)
+![Alt Text](https://github.com/aalonso003/US_Candy_Distributor_DB_Analysis/blob/main/Vizualizations/Top5_Selling_Products.png)
+![Alt Text](https://github.com/aalonso003/US_Candy_Distributor_DB_Analysis/blob/main/Vizualizations/Factory_Performance-BAR.png)
 
 📌 Full SQL script available here:  
 👉 https://github.com/aalonso003/US_Candy_Distributor_DB_Analysis/blob/main/SQL/US_Candy_Distributor-SQL.sql
