@@ -1,7 +1,7 @@
 -- ============================================================
 -- QUERY 1. Total Revenue per Year
 -- Goal: See YoY revenue for the Company
--- Skills:  GROUP BY, ORDER BY, aggregate functions
+-- Skills:  GROUP BY, ORDER BY, AGGREGATE FUNCTIONS
 -- ============================================================
 SELECT 
     CAST(YEAR(OrderDate) AS VARCHAR(4)) AS Year,
@@ -33,6 +33,7 @@ ORDER BY TotalRevenue DESC;
 -- QUERY 3: Total Revenue by Factory (Ranked)
 -- GOAL: Rank factories by revenue contribution to spot
 --       top performers and underperformers.
+-- Skills: JOIN, GROUP BY, ORDER BY, COUNT, RANK (WINDOW FUNCTION)
 -- ============================================================
 SELECT
     F.FactoryName,
@@ -53,7 +54,7 @@ ORDER BY FactoryRevenue DESC;
 -- QUERY 4: Total Revenue by Product Division
 -- Goal: Which candy division (Chocolate, Sugar, Other) drives
 --       the most revenue?
--- Skills: JOIN, GROUP BY, ORDER BY, aggregate functions
+-- Skills: JOIN, GROUP BY, ORDER BY, AGGREGATE FUNCTIONS
 -- ============================================================
 SELECT
     p.Division,
@@ -94,7 +95,7 @@ ORDER BY TotalUnitsShipped DESC;
 -- QUERY 6: Monthly Revenue vs. Sales Target by Division
 -- Goal: Are divisions meeting their monthly sales targets?
 --       Reveals over/under performance by month and division.
--- Skills: JOIN, GROUP BY, HAVING, calculated columns
+-- Skills: JOIN, GROUP BY, HAVING, CALCULATED COLUMNS
 -- ============================================================
 SELECT
     st.Division,
@@ -118,7 +119,7 @@ ORDER BY st.TargetMonth, st.Division;
 -- QUERY 7: Customer Type Revenue Breakdown
 -- Goal: Compare total spend across Retailer, Wholesaler, and
 --       Specialty customer types to guide sales strategy.
--- Skills: JOIN, GROUP BY, ORDER BY, aggregate + calculated column
+-- Skills: JOIN, GROUP BY, ORDER BY, AGGREGATE FUNCTIONS
 -- ============================================================
 SELECT
     c.CustomerType,
@@ -159,8 +160,7 @@ ORDER BY TotalUnitsSold ASC;
 -- QUERY 9: Factory Output & Profitability
 -- Goal: Rank factories by the revenue their products generate
 --       and evaluate gross profit margin on their product lines.
--- Skills: JOIN (3 tables), GROUP BY, ORDER BY,
---         aggregate functions, calculated margin column
+-- Skills: JOIN (3 tables), GROUP BY, ORDER BY, AGGREGATE FUNCTION
 -- ============================================================
 SELECT
     f.FactoryName,
@@ -186,6 +186,7 @@ ORDER BY GrossProfit DESC;
 -- QUERY 10: High-Value Customer Analysis (Subquery)
 -- GOAL: Find customers whose total spending exceeds the
 --       overall average order value — our most valuable accounts.
+-- Skills: JOIN, GROUP BY, ORDER BY, SUB QUERY
 -- ============================================================
 SELECT
     C.CustomerName,
